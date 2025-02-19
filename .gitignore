@@ -1,0 +1,12 @@
+# Backend
+backend/myenv/
+backend/__pycache__/
+backend/db.sqlite3
+backend/*.pyc
+backend/.env
+
+# Frontend
+frontend/node_modules/
+frontend/build/
+frontend/.env
+ 
