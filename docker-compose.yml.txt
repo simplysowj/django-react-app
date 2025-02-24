@@ -1,27 +1,37 @@
-version: '3'
+version: '3.8'
 
 services:
   backend:
-    build: ./backend
+    build: 
+      context: /Users/sowjanyabojja/Desktop/django-react-app/backend/apiview/orm1
     container_name: django-backend
     volumes:
-      - ./backend:/app
+      - /Users/sowjanyabojja/Desktop/django-react-app/backend/apiview/orm1:/app
     ports:
       - "8000:8000"
     environment:
       - PYTHONUNBUFFERED=1
     depends_on:
-      - db
+      db:
+        condition: service_healthy
     networks:
       - mynetwork
+    command: ["sh", "-c", "sleep 10 && python manage.py runserver 0.0.0.0:8000"]
+
 
   frontend:
-    build: ./frontend
+    build: 
+      context: /Users/sowjanyabojja/Desktop/django-react-app/frontend/react1/vite-project
     container_name: react-frontend
     volumes:
-      - ./frontend:/app
+      - /Users/sowjanyabojja/Desktop/django-react-app/frontend/react1/vite-project:/app
+      - /app/node_modules
     ports:
-      - "3000:3000"
+      - "5173:5173"
+    environment:
+      - REACT_APP_API_URL=http://backend:8000
+    depends_on:
+      - backend
     networks:
       - mynetwork
 
@@ -29,13 +39,20 @@ services:
     image: postgres:13
     container_name: postgres-db
     environment:
-      POSTGRES_USER: user
-      POSTGRES_PASSWORD: password
-      POSTGRES_DB: mydb
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: Sairam
+      POSTGRES_DB: business_db
+    ports:
+      - "5433:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
     networks:
       - mynetwork
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d business_db"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
 networks:
   mynetwork:
