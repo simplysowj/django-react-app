@@ -34,8 +34,7 @@ SECRET_KEY = 'django-insecure-)pt8y2inum55@8lr#w%d_0u8ikhl6h^ogje(=l!p4=ur--it=0
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['https://616b-2601-cb-8200-61c0-f547-8d04-27f4-4b4e.ngrok-free.app',
-                "localhost", "127.0.0.1",'616b-2601-cb-8200-61c0-f547-8d04-27f4-4b4e.ngrok-free.app']
+ALLOWED_HOSTS = ['*']
 CSRF_TRUSTED_ORIGINS = ["https://616b-2601-cb-8200-61c0-f547-8d04-27f4-4b4e.ngrok-free.app"]
 
 # Application definition
@@ -94,7 +93,7 @@ DATABASES = {
         'NAME': 'business_db',  # The name of your PostgreSQL database
         'USER': 'postgres',  # The PostgreSQL username (usually 'postgres' by default)
         'PASSWORD': 'Sairam',  # The PostgreSQL password for the 'postgres' user
-        'HOST': 'localhost',  # PostgreSQL is running locally (localhost), change if it's on a different server
+        'HOST': 'postgres-db',  # PostgreSQL is running locally (localhost), change if it's on a different server
         'PORT': '5432',  # Default PostgreSQL port
     }
 }
