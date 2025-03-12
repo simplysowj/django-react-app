@@ -56,7 +56,7 @@ def run_script():
             database="business_db",
             user="postgres",
             password="Sairam",
-            host="localhost",
+            host="postgres-db",
             port="5432"
         )
         print("Connected to PostgreSQL successfully!")

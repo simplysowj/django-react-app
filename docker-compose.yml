@@ -1,0 +1,68 @@
+version: '3.8'
+
+services:
+  backend:
+    build: 
+      context: ./backend/apiview/orm1
+    container_name: django-backend
+    volumes:
+      - ./backend/apiview/orm1:/app
+    ports:
+      - "8000:8000"
+    environment:
+      - PYTHONUNBUFFERED=1
+      - DB_NAME=${DB_NAME}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_HOST=${DB_HOST}
+      - DB_PORT=${DB_PORT}
+      - DJANGO_SECRET_KEY=${DJANGO_SECRET_KEY}
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - mynetwork
+    command: ["gunicorn", "--bind", "0.0.0.0:8000", "orm1.wsgi:application"]
+
+
+  frontend:
+    build: 
+      context: ./frontend/react1/vite-project
+    container_name: react-frontend
+    volumes:
+      - ./frontend/react1/vite-project:/app
+      - /app/node_modules
+    ports:
+      - "5173:5173"
+    environment:
+      - REACT_APP_API_URL=http://backend:8000
+    depends_on:
+      - backend
+    networks:
+      - mynetwork
+
+  db:
+    image: postgres:13
+    container_name: postgres-db
+    environment:
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_DB=${DB_NAME}
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - mynetwork
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d ${DB_NAME}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+networks:
+  mynetwork:
+    driver: bridge
+
+volumes:
+  postgres_data:

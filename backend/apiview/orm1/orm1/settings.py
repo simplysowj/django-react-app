@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
+import os 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -29,10 +30,13 @@ CORS_ALLOW_CREDENTIALS =True
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-)pt8y2inum55@8lr#w%d_0u8ikhl6h^ogje(=l!p4=ur--it=0'
+#SECRET_KEY = 'django-insecure-)pt8y2inum55@8lr#w%d_0u8ikhl6h^ogje(=l!p4=ur--it=0'
+
+SECRET_KEY = os.getenv('DJANGO_SECRET_KEY','django-insecure-)pt8y2inum55@8lr#w%d_0u8ikhl6h^ogje(=l!p4=ur--it=0')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+
 
 ALLOWED_HOSTS = ['*']
 CSRF_TRUSTED_ORIGINS = ["https://616b-2601-cb-8200-61c0-f547-8d04-27f4-4b4e.ngrok-free.app"]
@@ -87,14 +91,15 @@ WSGI_APPLICATION = 'orm1.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',  # Specifies the PostgreSQL database backend
-        'NAME': 'business_db',  # The name of your PostgreSQL database
-        'USER': 'postgres',  # The PostgreSQL username (usually 'postgres' by default)
-        'PASSWORD': 'Sairam',  # The PostgreSQL password for the 'postgres' user
-        'HOST': 'postgres-db',  # PostgreSQL is running locally (localhost), change if it's on a different server
-        'PORT': '5432',  # Default PostgreSQL port
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.getenv('DB_NAME', 'business_db'),
+        'USER': os.getenv('DB_USER', 'postgres'),
+        'PASSWORD': os.getenv('DB_PASSWORD', 'Sairam'),
+        'HOST': os.getenv('DB_HOST', 'postgres-db'),
+        'PORT': os.getenv('DB_PORT', '5432'),
     }
 }
 
