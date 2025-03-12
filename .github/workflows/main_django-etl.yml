@@ -20,15 +20,15 @@ jobs:
       uses: docker/login-action@v2
       with:
         registry: https://index.docker.io/v1/
-        username: ${{ secrets.AzureAppService_ContainerUsername_6732514c268e4b5fa7dd2195c88a3293 }}
-        password: ${{ secrets.AzureAppService_ContainerPassword_7b1fe04f82b7449389edf7847ca7cdc2 }}
+        username: ${{ secrets.DOCKER_USERNAME }}  # Replace with Docker Hub username secret
+        password: ${{ secrets.DOCKER_PASSWORD }}  # Replace with Docker Hub password or access token secret
 
     - name: Build and push container image to registry
       uses: docker/build-push-action@v3
       with:
         push: true
-        tags: index.docker.io/${{ secrets.AzureAppService_ContainerUsername_6732514c268e4b5fa7dd2195c88a3293 }}/simplysowj/django-backend:latest
-        file: ./backend/apiview/orm1/Dockerfile
+        tags: index.docker.io/${{ secrets.DOCKER_USERNAME }}/simplysowj/django-backend:latest
+        file: ./backend/apiview/orm1/Dockerfile  # Ensure this path is correct
 
   deploy:
     runs-on: ubuntu-latest
@@ -44,5 +44,5 @@ jobs:
       with:
         app-name: 'django-etl'
         slot-name: 'production'
-        publish-profile: ${{ secrets.AzureAppService_PublishProfile_5246959b830f4aaca218f7e9b5c37394 }}
-        images: 'index.docker.io/${{ secrets.AzureAppService_ContainerUsername_6732514c268e4b5fa7dd2195c88a3293 }}/simplysowj/django-backend:latest'
+        publish-profile: ${{ secrets.AzureAppService_PublishProfile_5246959b830f4aaca218f7e9b5c37394 }}  # Azure Publish Profile secret
+        images: 'index.docker.io/${{ secrets.DOCKER_USERNAME }}/simplysowj/django-backend:latest'
