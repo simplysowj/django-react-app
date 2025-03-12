@@ -43,13 +43,13 @@ jobs:
       - name: Zip artifact for deployment
         run: |
           cd backend/apiview/orm1/
-          zip -r ../../release.zip .
+          zip -r ../../../python-app.zip .
 
       - name: Upload artifact for deployment jobs
         uses: actions/upload-artifact@v4
         with:
           name: python-app
-          path: release.zip
+          path: python-app.zip  # Corrected file path
 
   deploy:
     runs-on: ubuntu-latest
@@ -66,9 +66,13 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: python-app
+          path: .
+
+      - name: Debug - List Downloaded Files
+        run: ls -R  # Check if artifact is present
 
       - name: Unzip artifact for deployment
-        run: unzip release.zip
+        run: unzip python-app.zip
 
       - name: Login to Azure
         uses: azure/login@v2
