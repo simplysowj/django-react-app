@@ -1,6 +1,3 @@
-# Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
-# More GitHub Actions for Azure: https://github.com/Azure/actions
-
 name: Build and deploy container app to Azure Web App - django-etl
 
 on:
@@ -23,14 +20,14 @@ jobs:
       uses: docker/login-action@v2
       with:
         registry: https://index.docker.io/v1/
-        username: ${{ secrets.AzureAppService_ContainerUsername_6732514c268e4b5fa7dd2195c88a3293 }}
-        password: ${{ secrets.AzureAppService_ContainerPassword_7b1fe04f82b7449389edf7847ca7cdc2 }}
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
 
     - name: Build and push container image to registry
       uses: docker/build-push-action@v3
       with:
         push: true
-        tags: index.docker.io/${{ secrets.AzureAppService_ContainerUsername_6732514c268e4b5fa7dd2195c88a3293 }}/simplysowj/django-backend:${{ github.sha }}
+        tags: index.docker.io/${{ secrets.DOCKER_USERNAME }}/simplysowj/django-backend:latest
         file: ./Dockerfile
 
   deploy:
@@ -47,5 +44,5 @@ jobs:
       with:
         app-name: 'django-etl'
         slot-name: 'production'
-        publish-profile: ${{ secrets.AzureAppService_PublishProfile_5246959b830f4aaca218f7e9b5c37394 }}
-        images: 'index.docker.io/${{ secrets.AzureAppService_ContainerUsername_6732514c268e4b5fa7dd2195c88a3293 }}/simplysowj/django-backend:${{ github.sha }}'
+        publish-profile: ${{ secrets.AZURE_PUBLISH_PROFILE }}
+        images: 'index.docker.io/${{ secrets.DOCKER_USERNAME }}/simplysowj/django-backend:latest'
