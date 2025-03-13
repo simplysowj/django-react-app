@@ -41,10 +41,10 @@ CORS_ALLOW_CREDENTIALS =True
 SECRET_KEY = os.getenv('DJANGO_SECRET_KEY','django-insecure-)pt8y2inum55@8lr#w%d_0u8ikhl6h^ogje(=l!p4=ur--it=0')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = os.getenv('DEBUG', 'False') == 'True'
 
 
-ALLOWED_HOSTS = ["https://etl-backend-g2efetgaepbdcyc0.eastus2-01.azurewebsites.net"]
+ALLOWED_HOSTS = ["*"]
 CSRF_TRUSTED_ORIGINS = ["https://616b-2601-cb-8200-61c0-f547-8d04-27f4-4b4e.ngrok-free.app",
                         "https://etl-backend-g2efetgaepbdcyc0.eastus2-01.azurewebsites.net"]
 
