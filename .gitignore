@@ -11,3 +11,4 @@ frontend/build/
 frontend/.env
  
 .DS_Store
+backend/apiview/orm1/venv/
