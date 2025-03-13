@@ -27,6 +27,7 @@ CORS_ALLOWED_ORIGINS = [
      "https://etl-backend-g2efetgaepbdcyc0.eastus2-01.azurewebsites.net"
     
 ]
+CORS_ALLOW_ALL_ORIGINS = True
 
 CORS_ALLOW_CREDENTIALS =True
 
