@@ -15,7 +15,7 @@ import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-CORS_ALLOW_ALL_ORIGINS = True
+#CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",  # Vite React URL
     "https://616b-2601-cb-8200-61c0-f547-8d04-27f4-4b4e.ngrok-free.app",
@@ -39,8 +39,9 @@ SECRET_KEY = os.getenv('DJANGO_SECRET_KEY','django-insecure-)pt8y2inum55@8lr#w%d
 DEBUG = True
 
 
-ALLOWED_HOSTS = ['*']
-CSRF_TRUSTED_ORIGINS = ["https://616b-2601-cb-8200-61c0-f547-8d04-27f4-4b4e.ngrok-free.app"]
+ALLOWED_HOSTS = ["https://etl-backend-g2efetgaepbdcyc0.eastus2-01.azurewebsites.net"]
+CSRF_TRUSTED_ORIGINS = ["https://616b-2601-cb-8200-61c0-f547-8d04-27f4-4b4e.ngrok-free.app",
+                        "https://etl-backend-g2efetgaepbdcyc0.eastus2-01.azurewebsites.net"]
 
 # Application definition
 
@@ -139,6 +140,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = 'static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
