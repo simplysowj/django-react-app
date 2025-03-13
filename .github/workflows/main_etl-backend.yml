@@ -1,7 +1,3 @@
-# Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
-# More GitHub Actions for Azure: https://github.com/Azure/actions
-# More info on Python, GitHub Actions, and Azure App Service: https://aka.ms/python-webapps-actions
-
 name: Build and deploy Python app to Azure Web App - etl-backend
 
 on:
@@ -14,7 +10,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     permissions:
-      contents: read # This is required for actions/checkout
+      contents: read # Required for actions/checkout
 
     steps:
       - name: Checkout repository
@@ -38,18 +34,16 @@ jobs:
           cd backend/apiview/orm1/
           pip install -r requirements.txt
 
-      # Optional: Add step to run tests here (PyTest, Django test suites, etc.)
-
       - name: Zip artifact for deployment
         run: |
           cd backend/apiview/orm1/
-          zip -r ../../../python-app.zip .
+          zip -r ../../python-app.zip .  # Ensure ZIP is created correctly
 
       - name: Upload artifact for deployment jobs
         uses: actions/upload-artifact@v4
         with:
           name: python-app
-          path: python-app.zip  # Corrected file path
+          path: python-app.zip  # Corrected path
 
   deploy:
     runs-on: ubuntu-latest
@@ -58,8 +52,8 @@ jobs:
       name: 'Production'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
     permissions:
-      id-token: write # This is required for requesting the JWT
-      contents: read # This is required for actions/checkout
+      id-token: write # Required for requesting JWT
+      contents: read # Required for actions/checkout
 
     steps:
       - name: Download artifact from build job
@@ -72,7 +66,9 @@ jobs:
         run: ls -R  # Check if artifact is present
 
       - name: Unzip artifact for deployment
-        run: unzip python-app.zip
+        run: |
+          unzip python-app.zip -d app  # Extract into `app` directory
+          ls -R app/  # Verify files
 
       - name: Login to Azure
         uses: azure/login@v2
@@ -87,3 +83,4 @@ jobs:
         with:
           app-name: 'etl-backend'
           slot-name: 'Production'
+          package: ./app  # Use the correct extracted path
