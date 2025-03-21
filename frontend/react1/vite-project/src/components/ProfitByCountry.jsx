@@ -34,7 +34,7 @@ const ProfitByRevenue = () => {
     });
 
     useEffect(() => {
-        axios.get('http://127.0.0.1:8000/api/business/profitbycountry/')
+        axios.get('https://djangoappcontainer2025unique.azurewebsites.net/api/business/profitbycountry/')
             .then(response => {
                 console.log('API Response:', response.data);  // Log the response data
                 const countries = Object.keys(response.data);
