@@ -43,7 +43,7 @@ function App() {
 
   const startScript = async () => {
     try {
-      const response = await axios.post('http://localhost:8000//api/business/start-script/');
+      const response = await axios.post('https://djangoappcontainer2025unique.azurewebsites.net/api/business/start-script/');
       setScriptStatus('Running');
       alert(response.data.status);
     } catch (error) {
