@@ -53,7 +53,7 @@ function App() {
   };
   const stopScript = async () => {
     try {
-      const response = await axios.post('http://localhost:8000/api/business/stop-script/');
+      const response = await axios.post('https://djangoappcontainer2025unique.azurewebsites.net/api/business/stop-script/');
       setScriptStatus('Stopped');
       alert(response.data.status);
     } catch (error) {
