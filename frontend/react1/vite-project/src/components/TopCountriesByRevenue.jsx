@@ -22,7 +22,7 @@ const TopCountriesByRevenue = () => {
     const chartRef = useRef(null); // Ref to store the chart instance
 
     useEffect(() => {
-        axios.get('http://127.0.0.1:8000/api/business/topbyrevenue/')
+        axios.get('https://djangoappcontainer2025unique.azurewebsites.net/api/business/topbyrevenue/')
             .then(response => {
                 console.log('API Response:', response.data); // Debugging log
 
