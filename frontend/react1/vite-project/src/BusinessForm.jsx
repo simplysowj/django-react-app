@@ -20,7 +20,7 @@ const BusinessForm = () => {
 
   const fetchBusinesses = async () => {
     try {
-      const response = await axios.get("http://127.0.0.1:8000/api/business/business/");
+      const response = await axios.get("https://djangoappcontainer2025unique.azurewebsites.net/api/business/business/");
       setBusinesses(response.data);
     } catch (error) {
       console.error("Error fetching businesses:", error);
@@ -48,9 +48,9 @@ const BusinessForm = () => {
     if (validateForm()) {
       try {
         if (editId) {
-          await axios.put(`http://127.0.0.1:8000/api/business/business/${editId}/`, formData);
+          await axios.put(`https://djangoappcontainer2025unique.azurewebsites.net/api/business/business/${editId}/`, formData);
         } else {
-          await axios.post("http://127.0.0.1:8000/api/business/forminsert/", formData);
+          await axios.post("https://djangoappcontainer2025unique.azurewebsites.net/api/business/forminsert/", formData);
         }
         setSuccess(true);
         setFormData({ name: "", revenue: "", profit: "", employees: "", country: "" });
@@ -70,7 +70,7 @@ const BusinessForm = () => {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://127.0.0.1:8000/api/business/business/${id}/`);
+      await axios.delete(`https://djangoappcontainer2025unique.azurewebsites.net/api/business/business/${id}/`);
       
       fetchBusinesses();
     } catch (error) {
