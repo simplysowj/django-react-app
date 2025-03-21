@@ -22,7 +22,7 @@ const TopBusinessesByRevenue = () => {
     const chartRef = useRef(null); // Ref to store the chart instance
 
     useEffect(() => {
-        axios.get('http://127.0.0.1:8000/api/business/top_businesses_by_revenue/')
+        axios.get('https://djangoappcontainer2025unique.azurewebsites.net/api/business/top_businesses_by_revenue/')
             .then(response => {
             if (response.data && Array.isArray(response.data)) {
                 const businesses = response.data.map(business => business.name);
