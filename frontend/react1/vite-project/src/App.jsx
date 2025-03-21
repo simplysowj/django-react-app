@@ -82,7 +82,7 @@ function App() {
     setLoading(true);
     setError(null);
     try {
-      const response = await axios.get("http://127.0.0.1:8000/api/business/top_businesses_by_revenue/");
+      const response = await axios.get("https://djangoappcontainer2025unique.azurewebsites.net/api/business/top_businesses_by_revenue/");
       setTopBusinessesData(response.data);
     } catch (err) {
       console.error("Fetch error:", err);
@@ -95,7 +95,7 @@ function App() {
     setLoading(true);
     setError(null);
     try {
-      const response = await axios.get("http://127.0.0.1:8000/api/business/topbyrevenue/");
+      const response = await axios.get("https://djangoappcontainer2025unique.azurewebsites.net/api/business/topbyrevenue/");
       setTopCountriesData(response.data);
     } catch (err) {
       console.error("Fetch error:", err);
@@ -112,7 +112,7 @@ function App() {
     setLoading(true);
     setError(null);
     try {
-      const response = await axios.get("http://127.0.0.1:8000/api/business/profitbycountry/");
+      const response = await axios.get("https://djangoappcontainer2025unique.azurewebsites.net/api/business/profitbycountry/");
       setProfitByCountryData(response.data);
     } catch (err) {
       console.error("Fetch error:", err);
@@ -161,7 +161,7 @@ function App() {
 
     try {
       const response = await axios.post(
-        "http://127.0.0.1:8000/api/business/data/",
+        "https://djangoappcontainer2025unique.azurewebsites.net/api/business/data/",
         formData,
         {
           headers: {
@@ -203,7 +203,7 @@ function App() {
 
     try {
       const response = await axios.post(
-        "http://127.0.0.1:8000/api/business/revenue/",
+        "https://djangoappcontainer2025unique.azurewebsites.net/api/business/revenue/",
         formData,
         {
           headers: {
@@ -241,7 +241,7 @@ function App() {
 
     try {
       const response = await axios.post(
-        "http://127.0.0.1:8000/api/business/usa/",
+        "https://djangoappcontainer2025unique.azurewebsites.net/api/business/usa/",
         formData,
         {
           headers: {
@@ -458,7 +458,7 @@ const BusinessAnalytics = () => {
 
 
   useEffect(() => {
-    axios.get("http://127.0.0.1:8000/api/business/analytics/")
+    axios.get("https://djangoappcontainer2025unique.azurewebsites.net/api/business/analytics/")
       .then(response => setData(response.data))
       .catch(error => console.error("Error fetching analytics:", error));
   }, []);
