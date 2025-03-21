@@ -29,7 +29,7 @@ const ExcelUpload = () => {
     formData.append("file", file); // Ensure this matches your Django API field name
  
     try {
-      const response = await axios.post("http://localhost:8000/api/business/upload-excel/", formData, {
+      const response = await axios.post("https://djangoappcontainer2025unique.azurewebsites.net/api/business/upload-excel/", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
