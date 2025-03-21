@@ -69,7 +69,7 @@ function App() {
     setLoading(true);
     setError(null);
     try {
-      const response = await axios.get("http://127.0.0.1:8000/api/business/business/stats/");
+      const response = await axios.get("https://djangoappcontainer2025unique.azurewebsites.net/api/business/business/stats/");
       setStatsData(response.data);
     } catch (err) {
       console.error("Fetch error:", err);
