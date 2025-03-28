@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import './components/BusinessForm.css';
-
+const BASE_URL = "https://djangoappcontainer2025unique.azurewebsites.net/";
 const BusinessForm = () => {
   const [formData, setFormData] = useState({
     name: "",
