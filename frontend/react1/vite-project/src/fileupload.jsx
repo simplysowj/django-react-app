@@ -4,6 +4,7 @@ import axios from "axios";
 import { Button, Typography, Box } from "@mui/material";
 import UploadFileIcon from "@mui/icons-material/UploadFile";
 
+const BASE_URL = "https://djangoappcontainer2025unique.azurewebsites.net/";
 
 const ExcelUpload = () => {
   const [file, setFile] = useState(null);
