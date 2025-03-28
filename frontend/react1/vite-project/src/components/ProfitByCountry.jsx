@@ -22,7 +22,7 @@ const ProfitByRevenue = () => {
         const fetchData = async () => {
             try {
                 setLoading(true);
-                const response = await axios.get('http://127.0.0.1:8000/api/business/profitbycountry/');
+                const response = await axios.get('${BASE_URL}/api/business/profitbycountry/');
                 
                 const countries = Object.keys(response.data);
                 const profits = Object.values(response.data);
