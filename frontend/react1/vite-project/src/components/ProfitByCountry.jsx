@@ -2,91 +2,111 @@ import React, { useEffect, useState } from 'react';
 import { Pie } from 'react-chartjs-2';
 import axios from 'axios';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
-import { Doughnut } from 'react-chartjs-2';
+import './ProfitByRevenue.css'; // Create this CSS file for component-specific styles
 
 // Register necessary components from Chart.js
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 const ProfitByRevenue = () => {
-    const [data, setData] = useState({
-        labels: [],
-        datasets: [
-            {
-                label: 'Profit by Revenue',
-                data: [],
-                backgroundColor: [
-                    'rgba(255,99,132,0.2)',
-                    'rgba(54,162,235,0.2)',
-                    'rgba(255,206,86,0.2)',
-                    'rgba(75,192,192,0.2)',
-                    'rgba(153,102,255,0.2)',
-                ],
-                borderColor: [
-                    'rgba(255,99,132,1)',
-                    'rgba(54,162,235,1)',
-                    'rgba(255,206,86,1)',
-                    'rgba(75,192,192,1)',
-                    'rgba(153,102,255,1)',
-                ],
-                borderWidth: 1,
-            },
-        ],
-    });
+    const [chartData, setChartData] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+
+    // Color palette for the chart
+    const colorPalette = [
+        '#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF',
+        '#FF9F40', '#8AC24A', '#EA5F89', '#00BBD3', '#F06292'
+    ];
 
     useEffect(() => {
-        axios.get('https://djangoappcontainer2025unique.azurewebsites.net/api/business/profitbycountry/')
-            .then(response => {
-                console.log('API Response:', response.data);  // Log the response data
+        const fetchData = async () => {
+            try {
+                setLoading(true);
+                const response = await axios.get('http://127.0.0.1:8000/api/business/profitbycountry/');
+                
                 const countries = Object.keys(response.data);
                 const profits = Object.values(response.data);
 
-                setData({
+                if (countries.length === 0) {
+                    throw new Error('No data available');
+                }
+
+                setChartData({
                     labels: countries,
-                    datasets: [
-                        {
-                            label: 'Profit by Revenue',
-                            data: profits,
-                            backgroundColor: [
-                                'rgba(255,99,132,0.2)',
-                                'rgba(54,162,235,0.2)',
-                                'rgba(255,206,86,0.2)',
-                                'rgba(75,192,192,0.2)',
-                                'rgba(153,102,255,0.2)',
-                            ],
-                            borderColor: [
-                                'rgba(255,99,132,1)',
-                                'rgba(54,162,235,1)',
-                                'rgba(255,206,86,1)',
-                                'rgba(75,192,192,1)',
-                                'rgba(153,102,255,1)',
-                            ],
-                            borderWidth: 1,
-                        },
-                    ],
+                    datasets: [{
+                        label: 'Profit by Country',
+                        data: profits,
+                        backgroundColor: colorPalette.slice(0, countries.length).map(color => `${color}80`),
+                        borderColor: colorPalette.slice(0, countries.length),
+                        borderWidth: 1,
+                        hoverOffset: 15
+                    }]
                 });
-            })
-            .catch(error => console.error('Error fetching data:', error));
+            } catch (err) {
+                console.error('Error fetching data:', err);
+                setError(err.message || 'Failed to load data');
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchData();
     }, []);
 
+    const chartOptions = {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            legend: {
+                position: 'right',
+                labels: {
+                    padding: 20,
+                    usePointStyle: true,
+                    pointStyle: 'circle'
+                }
+            },
+            tooltip: {
+                callbacks: {
+                    label: (context) => {
+                        const label = context.label || '';
+                        const value = context.raw || 0;
+                        const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                        const percentage = Math.round((value / total) * 100);
+                        return `${label}: $${value.toLocaleString()} (${percentage}%)`;
+                    }
+                }
+            },
+            title: {
+                display: true,
+                text: 'Profit Distribution by Country',
+                font: {
+                    size: 16
+                }
+            }
+        },
+        cutout: '60%', // Makes it more of a donut chart
+        animation: {
+            animateScale: true,
+            animateRotate: true
+        }
+    };
+
     return (
-        <div>
-            <h2>Profit by Country</h2>
-            {data.labels && data.datasets && data.labels.length > 0 && data.datasets[0].data.length > 0 ? (
-                <Pie data={data}
-                
-                options={{
-                    responsive: false,
-                    maintainAspectRatio: true, // Ensures the chart maintains its aspect ratio
-                    plugins: {
-                        tooltip: {
-                            enabled: true, // Enable tooltips
-                        },
-                    },
-                }}
-                
-                     />
+        <div className="profit-by-revenue-container">
+            <h2 className="chart-title">Profit by Country</h2>
+            
+            {loading ? (
+                <div className="loading-indicator">Loading data...</div>
+            ) : error ? (
+                <div className="error-message">{error}</div>
             ) : (
-                <p>Loading...</p>
+                <div className="chart-wrapper">
+                    <Pie 
+                        data={chartData} 
+                        options={chartOptions}
+                        redraw
+                    />
+                </div>
             )}
         </div>
     );
