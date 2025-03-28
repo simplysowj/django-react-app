@@ -9,6 +9,8 @@ import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, LineChart, L
 import dashboardImage from "./badashboard.png";
 //import VisualizationPage from "./VisualizationPage";
 
+const BASE_URL = "https://djangoappcontainer2025unique.azurewebsites.net/";
+
 const GraphDisplay = ({ columns, results, graphType }) => {
   console.log(graphType)
   console.log(columns)
