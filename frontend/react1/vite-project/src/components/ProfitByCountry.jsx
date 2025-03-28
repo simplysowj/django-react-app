@@ -6,7 +6,7 @@ import './ProfitByRevenue.css'; // Create this CSS file for component-specific s
 
 // Register necessary components from Chart.js
 ChartJS.register(ArcElement, Tooltip, Legend);
-
+const BASE_URL = "https://djangoappcontainer2025unique.azurewebsites.net/";
 const ProfitByRevenue = () => {
     const [chartData, setChartData] = useState(null);
     const [loading, setLoading] = useState(true);
