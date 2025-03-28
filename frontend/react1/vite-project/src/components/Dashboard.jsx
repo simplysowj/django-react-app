@@ -4,7 +4,7 @@ import ProfitByCountry from './ProfitByCountry';
 import TopBusinessesByRevenue from './TopBusinessesByRevenue';
 import ErrorBoundary from './ErrorBoundary';
 import './dashboardstyles.css';
-
+const BASE_URL = "https://djangoappcontainer2025unique.azurewebsites.net/";
 const Dashboard = () => {
     const [view, setView] = useState('topCountriesByRevenue');
 
