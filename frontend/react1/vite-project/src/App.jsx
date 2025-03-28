@@ -9,7 +9,7 @@ import Navbar from "./Navbar";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, LineChart, Line, PieChart, Pie, Cell } from 'recharts';
 import dashboardImage from "./components/badashboard.png";
 //import VisualizationPage from "./VisualizationPage";
-const BASE_URL = "http://localhost:8000/api/business";
+const BASE_URL = "https://djangoappcontainer2025unique.azurewebsites.net/";
 const GraphDisplay = ({ columns, results, graphType }) => {
   console.log(graphType)
   console.log(columns)
