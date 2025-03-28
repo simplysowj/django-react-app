@@ -6,6 +6,8 @@ import axios from 'axios';
 // Register the required components
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
+const BASE_URL = "https://djangoappcontainer2025unique.azurewebsites.net/";
+
 const TopBusinessesByRevenue = () => {
     const [data, setData] = useState({
         labels: [],
