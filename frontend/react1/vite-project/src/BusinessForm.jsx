@@ -50,10 +50,10 @@ const BusinessForm = () => {
     if (validateForm()) {
       try {
         if (editId) {
-          await axios.put(`${BASE_URL}/api/business/business/${editId}/`, formData);
+          await axios.put(`https://djangoappcontainer2025unique.azurewebsites.net/api/business/business/${editId}/`, formData);
           setSuccess("Business updated successfully!");
         } else {
-          await axios.post("${BASE_URL}/api/business/forminsert/", formData);
+          await axios.post("https://djangoappcontainer2025unique.azurewebsites.net/api/business/forminsert/", formData);
           setSuccess("Business added successfully!");
         }
         setFormData({ name: "", revenue: "", profit: "", employees: "", country: "" });
@@ -82,7 +82,7 @@ const BusinessForm = () => {
   const handleDelete = async (id) => {
     if (window.confirm("Are you sure you want to delete this business?")) {
       try {
-        await axios.delete(`${BASE_URL}/api/business/business/${id}/`);
+        await axios.delete(`https://djangoappcontainer2025unique.azurewebsites.net/api/business/business/${id}/`);
         setSuccess("Business deleted successfully!");
         fetchBusinesses();
         setTimeout(() => setSuccess(false), 3000);
