@@ -90,7 +90,7 @@ function App() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("${BASE_URL}/execute-query/", { query });
+      const response = await axios.post("${BASE_URL}/api/business/execute-query/", { query });
       //setSqlQuery(response.data);
       //setSqlQuery(JSON.stringify(response.data, null, 2)); 
       if (response.data.columns && response.data.results) {
