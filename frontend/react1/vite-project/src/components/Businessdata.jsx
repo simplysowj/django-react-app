@@ -91,7 +91,7 @@ function App() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("http://localhost:8000/api/business/execute-query/", { query });
+      const response = await axios.post("${BASE_URL}/api/business/execute-query/", { query });
       //setSqlQuery(response.data);
       //setSqlQuery(JSON.stringify(response.data, null, 2)); 
       if (response.data.columns && response.data.results) {
@@ -169,7 +169,7 @@ function App() {
 
   const startScript = async () => {
     try {
-      const response = await axios.post('http://127.0.0.1:8000/api/business/start-script/');
+      const response = await axios.post('${BASE_URL}/api/business/start-script/');
       setScriptStatus('Running');
       alert(response.data.status);
     } catch (error) {
@@ -180,7 +180,7 @@ function App() {
 
   const stopScript = async () => {
     try {
-      const response = await axios.post('http://127.0.0.1:8000/api/business/stop-script/');
+      const response = await axios.post('${BASE_URL}/api/business/stop-script/');
       setScriptStatus('Stopped');
       alert(response.data.status);
     } catch (error) {
@@ -193,7 +193,7 @@ function App() {
     setLoading(true);
     setError(null);
     try {
-      const response = await axios.get("http://127.0.0.1:8000/api/business/business/stats/");
+      const response = await axios.get("${BASE_URL}/api/business/business/stats/");
       setStatsData(response.data);
     } catch (err) {
       console.error("Fetch error:", err);
@@ -206,7 +206,7 @@ function App() {
     setLoading(true);
     setError(null);
     try {
-      const response = await axios.get("http://127.0.0.1:8000/api/business/top_businesses_by_revenue/");
+      const response = await axios.get("${BASE_URL}/api/business/top_businesses_by_revenue/");
       setTopBusinessesData(response.data);
     } catch (err) {
       console.error("Fetch error:", err);
@@ -219,7 +219,7 @@ function App() {
     setLoading(true);
     setError(null);
     try {
-      const response = await axios.get("http://127.0.0.1:8000/api/business/topbyrevenue/");
+      const response = await axios.get("${BASE_URL}/api/business/topbyrevenue/");
       setTopCountriesData(response.data);
     } catch (err) {
       console.error("Fetch error:", err);
@@ -232,7 +232,7 @@ function App() {
     setLoading(true);
     setError(null);
     try {
-      const response = await axios.get("http://127.0.0.1:8000/api/business/profitbycountry/");
+      const response = await axios.get("${BASE_URL}/api/business/profitbycountry/");
       setProfitByCountryData(response.data);
     } catch (err) {
       console.error("Fetch error:", err);
@@ -258,7 +258,7 @@ function App() {
 
     try {
       const response = await axios.post(
-        "http://127.0.0.1:8000/api/business/data/",
+        "${BASE_URL}/api/business/data/",
         formData,
         { headers: { "Content-Type": "multipart/form-data" } }
       );
@@ -283,7 +283,7 @@ function App() {
 
     try {
       const response = await axios.post(
-        "http://127.0.0.1:8000/api/business/revenue/",
+        "${BASE_URL}/api/business/revenue/",
         formData,
         { headers: { "Content-Type": "multipart/form-data" } }
       );
@@ -308,7 +308,7 @@ function App() {
 
     try {
       const response = await axios.post(
-        "http://127.0.0.1:8000/api/business/usa/",
+        "${BASE_URL}/api/business/usa/",
         formData,
         { headers: { "Content-Type": "multipart/form-data" } }
       );
@@ -324,7 +324,7 @@ function App() {
     const [data, setData] = useState(null);
 
     useEffect(() => {
-      axios.get("http://127.0.0.1:8000/api/business/analytics/")
+      axios.get("${BASE_URL}/api/business/analytics/")
         .then(response => setData(response.data))
         .catch(error => console.error("Error fetching analytics:", error));
     }, []);
