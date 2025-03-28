@@ -5,7 +5,7 @@ import TopBusinessesByRevenue from './components/TopBusinessesByRevenue';
 import ErrorBoundary from './components/ErrorBoundary'; // Import the ErrorBoundary component
 
 
-
+const BASE_URL = "https://djangoappcontainer2025unique.azurewebsites.net/";
 const Dashboard = () => {
     const [view, setView] = useState(null);
 
