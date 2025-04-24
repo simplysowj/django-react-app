@@ -407,125 +407,6 @@ function App() {
     </div>
   );
 
-      
- const AppContent = () => (
-    <div className="main" style={{ width: '100%' }}>
-      <div className="content">
-        <div id="content-main">
-          {showDashboard && <Dashboard />}
-          {showUploader && <ExcelUpload />}
-          {showForm && <BusinessForm />}
-          {showScriptExecution && <ScriptExecutionPanel />}
-          
-          {showDataAnalysis && (
-            <>
-              <BusinessAnalytics />
-              <div className="module">
-                <h2>Data Analysis Tools</h2>
-                {/* ... rest of your data analysis content ... */}
-              </div>
-            </>
-          )}
-          
-          {/* OpenAI Data Visualizations Section */}
-          <div>
-            <h4 style={{
-              textAlign: "center",
-              fontSize: "24px",
-              fontWeight: "bold",
-              color: "#333",
-              marginBottom: "20px",
-              background: "#f9f9f9",
-              padding: "10px",
-              borderRadius: "8px",
-              boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-              width: "100%",
-              maxWidth: "500px",
-              margin: "20px auto",
-            }}>
-              OpenAI Data Visualizations
-            </h4>
-
-            <form onSubmit={handleSubmit} style={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              gap: "15px",
-              background: "#f9f9f9",
-              padding: "20px",
-              borderRadius: "10px",
-              boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-              width: "100%",
-              maxWidth: "500px",
-              margin: "20px auto",
-            }}>
-              <input 
-                value={query} 
-                onChange={(e) => setQuery(e.target.value)} 
-                placeholder="Enter your question"
-                style={{
-                  width: "90%",
-                  padding: "10px",
-                  borderRadius: "5px",
-                  border: "1px solid #ccc",
-                  fontSize: "16px",
-                  outline: "none",
-                }} 
-              />
-              <button 
-                type="submit" 
-                style={{
-                  background: "#007bff",
-                  color: "white",
-                  border: "none",
-                  padding: "10px 20px",
-                  fontSize: "16px",
-                  borderRadius: "5px",
-                  cursor: "pointer",
-                  transition: "background 0.3s ease",
-                }}
-                onMouseOver={(e) => (e.target.style.background = "#0056b3")}
-                onMouseOut={(e) => (e.target.style.background = "#007bff")}
-              >
-                Generate
-              </button>
-            </form>
-
-            {error && <p style={{ color: "red" }}>{error}</p>}
-            {columns.length > 0 && results.length > 0 && (
-              <div className="table-container">
-                <table className="results-table">
-                  <thead>
-                    <tr>
-                      {columns.map((col, index) => (
-                        <th key={index}>{col}</th>
-                      ))}
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {results.map((row, i) => (
-                      <tr key={i}>
-                        {row.map((cell, j) => (
-                          <td key={j}>{cell}</td>
-                        ))}
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-                <button className="graph-button" onClick={() => setGraphType(graphType)}>
-                  Generate Graph
-                </button>
-                <GraphDisplay columns={columns} results={results} graphType={graphType} />
-              </div>
-            )}
-          </div>
-
-          {!showDashboard && !showUploader && !showForm && 
-           !showDataAnalysis && !showScriptExecution && <HomePage />}
-        </div>
-      </div>
-    </div>
-  );
   return (
     <Router>
     <div id="container" style={{ width: '100vw', overflowX: 'hidden' }}>
@@ -588,9 +469,8 @@ function App() {
             )
           } />
         </Routes>
-      </div>
-    </Router>
-    <div className="main" style={{ width: '100%' }}>
+      
+      <div className="main" style={{ width: '100%' }}>
         <div className="content">
           <div id="content-main">
             
@@ -883,7 +763,8 @@ function App() {
           </div>
         </div>
       </div>
-    
+    </div>
+      </Router>
   );
 }
 
