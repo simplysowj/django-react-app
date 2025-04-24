@@ -6,13 +6,16 @@ const Navbar = ({
   setShowForm,
   setShowDataAnalysis,
   toggleDashboard, 
-  setShowScriptExecution
+  setShowScriptExecution,
+  isAuthenticated,
+  handleLogout
 }) => {
   return (
     <div id="header">
       <div id="branding">
         <h1 id="site-name">Business Analytics</h1>
       </div>
+      {isAuthenticated && (
       <div id="user-tools">
         
         <button 
@@ -69,8 +72,14 @@ const Navbar = ({
         >
           Script Execution
         </button>
-        
+        <button 
+            className="button logout-button" 
+            onClick={handleLogout}
+          >
+            Log out
+          </button>
       </div>
+      )}
     </div>
   );
 };
