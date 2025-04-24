@@ -6,6 +6,7 @@ import ExcelUpload from "./fileupload";
 import BusinessForm from "./BusinessForm";
 import Dashboard from "./components/Dashboard";
 import Navbar from "./Navbar";
+import Login from "./components/Login";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, LineChart, Line, PieChart, Pie, Cell } from 'recharts';
 import dashboardImage from "./components/badashboard.png";
 //import VisualizationPage from "./VisualizationPage";
