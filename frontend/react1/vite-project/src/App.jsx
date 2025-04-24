@@ -189,6 +189,150 @@ function App() {
       </div>
     </div>
   );
+const startScript = async () => {
+    try {
+      const response = await axios.post('https://djangoappcontainer2025unique.azurewebsites.net/api/business/start-script/');
+      setScriptStatus('Running');
+      alert(response.data.status);
+    } catch (error) {
+      console.error('Error starting script:', error);
+      alert('Failed to start the script. Check the console for details.');
+    }
+  };
+  const stopScript = async () => {
+    try {
+      const response = await axios.post('https://djangoappcontainer2025unique.azurewebsites.net/api/business/stop-script/');
+      setScriptStatus('Stopped');
+      alert(response.data.status);
+    } catch (error) {
+      console.error('Error stopping script:', error);
+      alert('Failed to stop the script. Check the console for details.');
+    }
+  };
+  const fetchStatsData = async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      const response = await axios.get("https://djangoappcontainer2025unique.azurewebsites.net/api/business/business/stats/");
+      setStatsData(response.data);
+    } catch (err) {
+      console.error("Fetch error:", err);
+      setError("Failed to fetch statistics.");
+    }
+    setLoading(false);
+  };
+  const fetchTopBusinessesData = async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      const response = await axios.get("https://djangoappcontainer2025unique.azurewebsites.net/api/business/top_businesses_by_revenue/");
+      setTopBusinessesData(response.data);
+    } catch (err) {
+      console.error("Fetch error:", err);
+      setError("Failed to fetch top businesses by revenue.");
+    }
+    setLoading(false);
+  };
+const fetchTopCountriesData = async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      const response = await axios.get("https://djangoappcontainer2025unique.azurewebsites.net/api/business/topbyrevenue/");
+      setTopCountriesData(response.data);
+    } catch (err) {
+      console.error("Fetch error:", err);
+      setError("Failed to fetch top countries by revenue.");
+    }
+    setLoading(false);
+  };
+  const fetchProfitByCountryData = async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      const response = await axios.get("https://djangoappcontainer2025unique.azurewebsites.net/api/business/profitbycountry/");
+      setProfitByCountryData(response.data);
+    } catch (err) {
+      console.error("Fetch error:", err);
+      setError("Failed to fetch profit by country.");
+    }
+    setLoading(false);
+  };
+  const handleFileChange = (event) => {
+    setFile(event.target.files[0]);
+  };
+
+  const fetchProfitData = async () => {
+    if (!file) {
+      setError("Please select a file first.");
+      return;
+    }
+     setLoading(true);
+    setError(null);
+    const formData = new FormData();
+    formData.append("file", file);
+
+    try {
+      const response = await axios.post(
+        "https://djangoappcontainer2025unique.azurewebsites.net/api/business/data/",
+        formData,
+        { headers: { "Content-Type": "multipart/form-data" } }
+      );
+      setProfitData(response.data);
+    } catch (err) {
+      console.error("Fetch error:", err);
+      setError("Failed to fetch profit data.");
+    }
+    setLoading(false);
+  };
+  const fetchRevenueData = async () => {
+    if (!file) {
+      setError("Please select a file first.");
+      return;
+    }
+
+    setLoading(true);
+    setError(null);
+    const formData = new FormData();
+    formData.append("file", file);
+
+    try {
+      const response = await axios.post(
+        "https://djangoappcontainer2025unique.azurewebsites.net/api/business/revenue/",
+        formData,
+        { headers: { "Content-Type": "multipart/form-data" } }
+      );
+      setRevenueData(response.data);
+    } catch (err) {
+      console.error("Fetch error:", err);
+      setError("Failed to fetch revenue data.");
+    }
+    setLoading(false);
+  };
+
+  const fetchUsaData = async () => {
+    if (!file) {
+      setError("Please select a file first.");
+      return;
+    }
+
+    setLoading(true);
+    setError(null);
+    const formData = new FormData();
+    formData.append("file", file);
+
+    try {
+      const response = await axios.post(
+        "https://djangoappcontainer2025unique.azurewebsites.net/api/business/usa/",
+        formData,
+        { headers: { "Content-Type": "multipart/form-data" } }
+      );
+      setUsaData(response.data);
+    } catch (err) {
+      console.error("Fetch error:", err);
+      setError("Failed to fetch usa data.");
+    }
+    setLoading(false);
+  };
 
   const BusinessAnalytics = () => {
     const [data, setData] = useState(null);
@@ -256,7 +400,179 @@ function App() {
               <BusinessAnalytics />
               <div className="module">
                 <h2>Data Analysis Tools</h2>
-                {/* ... rest of your data analysis content ... */}
+                 <div className="form-row">
+                    <button onClick={fetchStatsData} disabled={loading} className="button">
+                      Get Business Stats
+                    </button>
+                    {statsData && (
+  <div className="stats-table-container">
+    <h3>Business Statistics</h3>
+    <table className="stats-table">
+      <thead>
+        <tr>
+          <th>Metric</th>
+          <th>Mean</th>
+          <th>Standard Deviation</th>
+          <th>Minimum</th>
+          <th>Maximum</th>
+        </tr>
+      </thead>
+      <tbody>
+        {Object.entries(statsData).map(([category, values]) => (
+          <tr key={category}>
+            <td className="category">{category.charAt(0).toUpperCase() + category.slice(1)}</td>
+            <td>{typeof values.mean === 'number' ? values.mean.toLocaleString(undefined, {maximumFractionDigits: 2}) : values.mean}</td>
+            <td>{typeof values.std_dev === 'number' ? values.std_dev.toLocaleString(undefined, {maximumFractionDigits: 2}) : values.std_dev}</td>
+            <td>{typeof values.min === 'number' ? values.min.toLocaleString() : values.min}</td>
+            <td>{typeof values.max === 'number' ? values.max.toLocaleString() : values.max}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+)}
+                  </div>
+
+                  <div className="form-row">
+                    <button onClick={fetchProfitByCountryData} disabled={loading} className="button">
+                      Get Profit by Country
+                    </button>
+                    {profitByCountryData && (
+  <div className="profit-table-container">
+    <h3>Profit by Country</h3>
+    <table className="profit-table">
+      <thead>
+        <tr>
+          <th>Country</th>
+          <th>Profit</th>
+        </tr>
+      </thead>
+      <tbody>
+        {Object.entries(profitByCountryData).map(([country, profit]) => (
+          <tr key={country}>
+            <td>{country}</td>
+            <td>${typeof profit === 'number' ? profit.toLocaleString() : profit}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+)}
+                  </div>
+
+                  <div className="form-row">
+                    <button onClick={fetchTopCountriesData} disabled={loading} className="button">
+                      Get Top Countries by Revenue
+                    </button>
+                    {topCountriesData && (
+  <div className="countries-table-container">
+    <h3>Top Countries by Revenue</h3>
+    <table className="countries-table">
+      <thead>
+        <tr>
+          <th>Rank</th>
+          <th>Country</th>
+          <th>Revenue</th>
+        </tr>
+      </thead>
+      <tbody>
+        {Object.entries(topCountriesData).map(([country, revenue], index) => (
+          <tr key={country}>
+            <td>{index + 1}</td>
+            <td>{country}</td>
+            <td>${typeof revenue === 'number' ? revenue.toLocaleString() : revenue}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+)}
+                  </div>
+
+                  <div className="form-row">
+                    <button onClick={fetchTopBusinessesData} disabled={loading} className="button">
+                      Get Top 5 Businesses by Revenue
+                    </button>
+                    {topBusinessesData && (
+  <div className="business-table-container">
+    <h3>Top 5 Businesses by Revenue</h3>
+    <table className="business-table">
+      <thead>
+        <tr>
+          <th>Rank</th>
+          <th>Business Name</th>
+          <th>Revenue (USD)</th>
+        </tr>
+      </thead>
+      <tbody>
+        {topBusinessesData.map((business, index) => (
+          <tr key={`${business.name}-${index}`}>
+            <td className="rank">{index + 1}</td>
+            <td className="name">{business.name}</td>
+            <td className="revenue">${business.revenue.toLocaleString()}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+)}
+                  </div>
+
+                  <div className="form-row">
+                    <h3>Upload Data</h3>
+                    <input 
+                      type="file" 
+                      onChange={handleFileChange} 
+                      className="vTextField" 
+                      disabled={loading}
+                    />
+                    <div className="submit-row">
+                      <button 
+                        onClick={fetchProfitData} 
+                        disabled={loading || !file}
+                        className="button default"
+                      >
+                        Upload & Analyze Profit
+                      </button>
+                      <button 
+                        onClick={fetchRevenueData} 
+                        disabled={loading || !file}
+                        className="button default"
+                      >
+                        Upload & Analyze Revenue
+                      </button>
+                      <button 
+                        onClick={fetchUsaData} 
+                        disabled={loading || !file}
+                        className="button default"
+                      >
+                        Upload & Analyze USA Data
+                      </button>
+                    </div>
+                  </div>
+
+                  {error && <div className="errornote">{error}</div>}
+
+                  {profitData && (
+                    <div className="results">
+                      <h3>Profitable Businesses (Profit greater than 20,000):</h3>
+                      <pre>{JSON.stringify(profitData, null, 2)}</pre>
+                    </div>
+                  )}
+
+                  {revenueData && (
+                    <div className="results">
+                      <h3>Revenue greater than 50,000:</h3>
+                      <pre>{JSON.stringify(revenueData, null, 2)}</pre>
+                    </div>
+                  )}
+
+                  {usaData && (
+                    <div className="results">
+                      <h3>Data with USA:</h3>
+                      <pre>{JSON.stringify(usaData, null, 2)}</pre>
+                    </div>
+                  )}
               </div>
             </>
           )}
