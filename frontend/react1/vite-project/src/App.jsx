@@ -10,6 +10,17 @@ import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, LineChart, L
 import dashboardImage from "./components/badashboard.png";
 //import VisualizationPage from "./VisualizationPage";
 const BASE_URL = "https://djangoappcontainer2025unique.azurewebsites.net/";
+// Configure axios to include auth token in all requests
+axios.interceptors.request.use((config) => {
+  const token = localStorage.getItem("token");
+  if (token) {
+    config.headers.Authorization = `Token ${token}`;
+  }
+  return config;
+}, (error) => {
+  return Promise.reject(error);
+});
+
 const GraphDisplay = ({ columns, results, graphType }) => {
   console.log(graphType)
   console.log(columns)
@@ -85,7 +96,28 @@ function App() {
   const [columns, setColumns] = useState([]);
   const [results, setResults] = useState([]);
   const [graphType, setGraphType] = useState(null);
-  
+  // Authentication state
+  const [isAuthenticated, setIsAuthenticated] = useState(() => {
+    return Boolean(localStorage.getItem("token")) && 
+           localStorage.getItem("isSuperuser") === "true";
+  });
+
+  // Verify token on initial load
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      axios.get(`${BASE_URL}api/auth/verify/`)
+        .catch(() => {
+          handleLogout();
+        });
+    }
+  }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("isSuperuser");
+    setIsAuthenticated(false);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -374,10 +406,10 @@ function App() {
   );
 
   return (
-    
+    <Router>
     <div id="container" style={{ width: '100vw', overflowX: 'hidden' }}>
       
-
+    {isAuthenticated && (
    
 
       <Navbar
@@ -417,6 +449,24 @@ function App() {
           setShowDataAnalysis(false);
         }}
       />
+      )}
+        <Routes>
+          <Route path="/login" element={
+            !isAuthenticated ? (
+              <Login setIsAuthenticated={setIsAuthenticated} />
+            ) : (
+              <Navigate to="/" replace />
+            )
+          } />
+          
+          <Route path="/" element={
+            isAuthenticated ? (
+              <AppContent />
+            ) : (
+              <Navigate to="/login" replace />
+            )
+          } />
+        </Routes>
       
       <div className="main" style={{ width: '100%' }}>
         <div className="content">
@@ -712,6 +762,7 @@ function App() {
         </div>
       </div>
     </div>
+      </Router>
   );
 }
 
