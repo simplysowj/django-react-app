@@ -407,69 +407,7 @@ function App() {
     </div>
   );
 
-  return (
-    <Router>
-    <div id="container" style={{ width: '100vw', overflowX: 'hidden' }}>
-      
-    {isAuthenticated && (
-   
-
-      <Navbar
-        toggleDashboard={() => {
-          setShowDashboard(!showDashboard);
-          setShowUploader(false);
-          setShowForm(false);
-          setShowDataAnalysis(false);
-          setShowScriptExecution(false);
-        }}
-        setShowUploader={(val) => {
-          setShowUploader(val);
-          setShowDashboard(false);
-          setShowForm(false);
-          setShowDataAnalysis(false);
-          setShowScriptExecution(false);
-        }}
-        setShowForm={(val) => {
-          setShowForm(val);
-          setShowDashboard(false);
-          setShowUploader(false);
-          setShowDataAnalysis(false);
-          setShowScriptExecution(false);
-        }}
-        setShowDataAnalysis={(val) => {
-          setShowDataAnalysis(val);
-          setShowDashboard(false);
-          setShowUploader(false);
-          setShowForm(false);
-          setShowScriptExecution(false);
-        }}
-        setShowScriptExecution={(val) => {
-          setShowScriptExecution(val);
-          setShowDashboard(false);
-          setShowUploader(false);
-          setShowForm(false);
-          setShowDataAnalysis(false);
-        }}
-      />
-      )}
-        <Routes>
-          <Route path="/login" element={
-            !isAuthenticated ? (
-              <Login setIsAuthenticated={setIsAuthenticated} />
-            ) : (
-              <Navigate to="/" replace />
-            )
-          } />
-          
-          <Route path="/" element={
-            isAuthenticated ? (
-              <AppContent />
-            ) : (
-              <Navigate to="/login" replace />
-            )
-          } />
-        </Routes>
-      
+      const AppContent = () => ( 
       <div className="main" style={{ width: '100%' }}>
         <div className="content">
           <div id="content-main">
@@ -763,8 +701,74 @@ function App() {
           </div>
         </div>
       </div>
-    </div>
-      </Router>
+      );
+
+  return (
+    <Router>
+    <div id="container" style={{ width: '100vw', overflowX: 'hidden' }}>
+      
+    {isAuthenticated && (
+   
+
+      <Navbar
+        toggleDashboard={() => {
+          setShowDashboard(!showDashboard);
+          setShowUploader(false);
+          setShowForm(false);
+          setShowDataAnalysis(false);
+          setShowScriptExecution(false);
+        }}
+        setShowUploader={(val) => {
+          setShowUploader(val);
+          setShowDashboard(false);
+          setShowForm(false);
+          setShowDataAnalysis(false);
+          setShowScriptExecution(false);
+        }}
+        setShowForm={(val) => {
+          setShowForm(val);
+          setShowDashboard(false);
+          setShowUploader(false);
+          setShowDataAnalysis(false);
+          setShowScriptExecution(false);
+        }}
+        setShowDataAnalysis={(val) => {
+          setShowDataAnalysis(val);
+          setShowDashboard(false);
+          setShowUploader(false);
+          setShowForm(false);
+          setShowScriptExecution(false);
+        }}
+        setShowScriptExecution={(val) => {
+          setShowScriptExecution(val);
+          setShowDashboard(false);
+          setShowUploader(false);
+          setShowForm(false);
+          setShowDataAnalysis(false);
+        }}
+      />
+      )}
+        <Routes>
+          <Route path="/login" element={
+            !isAuthenticated ? (
+              <Login setIsAuthenticated={setIsAuthenticated} />
+            ) : (
+              <Navigate to="/" replace />
+            )
+          } />
+          
+          <Route path="/" element={
+            isAuthenticated ? (
+              <AppContent />
+            ) : (
+              <Navigate to="/login" replace />
+            )
+          } />
+        </Routes>
+      </div>
+    </Router>
+ 
+    
   );
 }
 
