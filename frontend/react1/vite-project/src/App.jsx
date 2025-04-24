@@ -116,7 +116,7 @@ function App() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(`${BASE_URL}api/business/execute-query/`, { query });
+      const response = await axios.post(`https://djangoappcontainer2025unique.azurewebsites.net/api/business/execute-query/`, { query });
       if (response.data.columns && response.data.results) {
         setColumns(response.data.columns);
         setResults(response.data.results);
