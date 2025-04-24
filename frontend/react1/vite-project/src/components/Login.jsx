@@ -15,7 +15,7 @@ const Login = ({ setIsAuthenticated }) => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "http://127.0.0.1:8000/api/business/login/",
+        "https://djangoappcontainer2025unique.azurewebsites.net/api/business/login/",
         { username, password }
       );
       
