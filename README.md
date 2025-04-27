@@ -112,20 +112,6 @@ graph TD
     D --> E[Django API]
     E --> F[GPT-4 NLP]
     F --> G[React Dashboard]
-queries
-- **Anomaly Detection**: Built-in PySpark ML alerts for data irregularities
-- **Multi-Source Ingestion**: Excel, web forms, APIs → PostgreSQL via Django ORM
-
-## Tech Stack
-
-| Component | Technologies |
-|-----------|--------------|
-| **Backend** | Django REST, PostgreSQL, Psycopg2 |
-| **Data Pipeline** | Kafka, Zookeeper, PySpark |
-| **AI** | OpenAI GPT-4, Pandas/Numpy |
-| **Frontend** | React, Chart.js |
-| **Infra** | Docker, Azure (ACR, MySQL) |
-
 
 
 Quick Start
