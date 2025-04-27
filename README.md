@@ -102,6 +102,20 @@ This project is open-source under the MIT License.
 - **Anomaly Detection**: Built-in PySpark ML alerts for data irregularities
 - **Multi-Source Ingestion**: Excel, web forms, APIs → PostgreSQL via Django ORM
 
+## Architecture
+
+```mermaid
+graph TD
+    A[Data Sources] --> B{Kafka}
+    B --> C[PySpark Processing]
+    C --> D[(PostgreSQL)]
+    D --> E[Django API]
+    E --> F[GPT-4 NLP]
+    F --> G[React Dashboard]
+queries
+- **Anomaly Detection**: Built-in PySpark ML alerts for data irregularities
+- **Multi-Source Ingestion**: Excel, web forms, APIs → PostgreSQL via Django ORM
+
 ## Tech Stack
 
 | Component | Technologies |
