@@ -104,14 +104,7 @@ This project is open-source under the MIT License.
 
 ## Architecture
 
-```mermaid
-graph TD
-    A[Data Sources] --> B{Kafka}
-    B --> C[PySpark Processing]
-    C --> D[(PostgreSQL)]
-    D --> E[Django API]
-    E --> F[GPT-4 NLP]
-    F --> G[React Dashboard]
+
 
 
 Quick Start
