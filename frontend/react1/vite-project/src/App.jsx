@@ -116,7 +116,7 @@ function App() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(`https://djangoappcontainer2025unique.azurewebsites.net/api/business/execute-query/`, { query });
+      const response = await axios.post(`https://djangoappcontainer2025unique.azurewebsites.net/api/business/execute-query/`, { query: sqlQuery });
       if (response.data.columns && response.data.results) {
         setColumns(response.data.columns);
         setResults(response.data.results);
@@ -610,8 +610,8 @@ const fetchTopCountriesData = async () => {
               margin: "20px auto",
             }}>
               <input 
-                value={query} 
-                onChange={(e) => setQuery(e.target.value)} 
+                value={sqlQuery} 
+                onChange={(e) => setSqlQuery(e.target.value)} 
                 placeholder="Enter your question"
                 style={{
                   width: "90%",
