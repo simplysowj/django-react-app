@@ -662,7 +662,7 @@ const fetchTopCountriesData = async () => {
                     ))}
                   </tbody>
                 </table>
-                <button className="graph-button" onClick={() => setGraphType(graphType)}>
+                <button className="graph-button" onClick={() => setGraphType("bar")}>
                   Generate Graph
                 </button>
                 <GraphDisplay columns={columns} results={results} graphType={graphType} />
