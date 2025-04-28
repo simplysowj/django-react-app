@@ -85,7 +85,7 @@ function App() {
   const [showDataAnalysis, setShowDataAnalysis] = useState(false);
   const [showScriptExecution, setShowScriptExecution] = useState(false);
   const [sqlQuery, setSqlQuery] = useState("");
-  const [query, setQuery] = useState("");
+  
   const [columns, setColumns] = useState([]);
   const [results, setResults] = useState([]);
   const [graphType, setGraphType] = useState(null);
